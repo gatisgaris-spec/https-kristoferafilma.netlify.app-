@@ -5,38 +5,56 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kristofers un divu pasauļu atslēga | Oficiālā Mājaslapa</title>
     <!-- Google Fonts saites abiem fontiem (PILNĪBĀ SALABOTS UN STRĀDĀ) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://googleapis.com" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Marcellus+SC&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     <style>
         /* PAMATA STILI UN JAUNĀS KRĀSAS */
-        html, body { margin: 0; padding: 0; }
-        body { 
-            background-color: #e2f0d9 !important; /* 🟢 Gaiši zaļgans fons visai vietnei */
-            color: #b33600 !important; /* Tumši oranžs teksts */
-            line-height: 1.6; 
-            overflow: hidden; /* Sākotnēji bloķē ritināšanu */ 
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+        }
+
+        body {
+            background-color: #f3f1e3;
+            color: #2a301e;
+            line-height: 1.6;
+            overflow: hidden; /* Sākotnēji bloķē ritināšanu */
             font-family: 'Montserrat', sans-serif; /* Pamata tekstam */
         }
-        
-        a { text-decoration: none; color: #802600; } /* Tumšākas saites */
-        
+
+        a {
+            text-decoration: none;
+            color: #802600; /* Tumšākas saites */
+        }
+
         /* FILMAS NOSAUKUMA FONTU NOFORMĒJUMS AR TREKNRAKSTU */
-        .hero-content h1, h1 {
-            font-family: 'Marcellus SC', serif !important; /* Aktivizē mītisko fontu */
-            font-size: 3.5rem; 
-            text-align: center; 
+        h1 {
+            font-family: 'Marcellus SC', serif; /* Aktivizē mītisko fontu */
+            font-size: 3.5rem;
+            text-align: center;
             letter-spacing: 3px;
             margin-top: 40px;
-            /* Mākslīgais treknraksts un kontūra: */
-            -webkit-text-stroke: 1px #b33600; 
-            text-shadow: 1px 0px 0px #b33600, -1px 0px 0px #b33600, 0px 1px 0px #b33600, 0px -1px 0px #b33600;
+            color: #b33600;
         }
         
         /* FRONTĀLAIS SLAIDS AR REĀLO PLAKĀTU */
         #splash-screen {
             position: fixed;
-            top: 0; left: 0; width: 100vw; height: 100vh;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
             background: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.4)), url('https://i.postimg.cc/fRTCxN38/Kristofers-Cinema-1920x1080-(1)-cleanup.png') no-repeat center center/cover;
             z-index: 9999;
             display: flex;
@@ -48,83 +66,345 @@
             transition: transform 0.8s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.8s ease;
         }
         
-        /* Teksts ar animāciju uz plakāta */
-        .enter-text { 
-            margin-top: 25vh;
-            font-size: 1rem; 
-            text-transform: uppercase; 
-            letter-spacing: 4px; 
-            color: #ffffff; 
-            text-shadow: 0 2px 10px rgba(0,0,0,0.9);
-            animation: pulse 2s infinite; 
-            font-weight: bold; 
-            background-color: rgba(255, 51, 51, 0.85);
-            padding: 12px 25px;
-            border-radius: 4px;
+        .splash-actions {
+            position: absolute;
+            left: 50%;
+            top: 58%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
         }
-        @keyframes pulse { 
-            0% { opacity: 0.6; transform: scale(0.98); } 
-            50% { opacity: 1; transform: scale(1); } 
-            100% { opacity: 0.6; transform: scale(0.98); } 
+        .splash-actions .btn {
+            margin: 0;
+            box-sizing: border-box;
+            min-height: 52px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            white-space: nowrap;
+        }
+        .splash-actions .btn-secondary {
+            background-color: rgba(14, 20, 24, 0.55);
+            border: 2px solid #ffffff;
+            color: #ffffff;
+        }
+        .splash-actions .btn-secondary:hover {
+            background-color: #ffffff;
+            border-color: #b33600;
+            color: #b33600;
         }
 
         /* Satura ietvars pēc aktivizēšanas */
-        #main-content { opacity: 0; transition: opacity 1s ease; }
+        #main-content {
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
 
-        header { position: fixed; top: 0; width: 100%; background-color: rgba(226, 240, 217, 0.85); backdrop-filter: blur(10px); z-index: 1000; border-bottom: 1px solid #b33600; }
-        .nav-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 20px; }
-        .logo { font-weight: bold; font-size: 1.2rem; text-transform: uppercase; letter-spacing: 2px; }
-        .nav-links a { margin-left: 20px; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; transition: color 0.3s; color: #b33600; font-weight: bold; }
-        .nav-links a:hover { color: #802600; }
-        .hero { position: relative; height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; padding: 20px; background: transparent !important; }
-        .hero-content p { font-size: 1.2rem; color: #b33600; margin-bottom: 30px; letter-spacing: 1px; }
-        .btn { display: inline-block; padding: 15px 35px; font-weight: bold; text-transform: uppercase; border-radius: 4px; transition: all 0.3s ease; margin: 10px; letter-spacing: 1px; }
-        .btn-primary { background-color: #ff3333; color: #ffffff; }
-        .btn-primary:hover { background-color: #cc0000; transform: translateY(-2px); }
-        .btn-secondary { border: 2px solid #b33600; color: #b33600; }
-        .btn-secondary:hover { background-color: #b33600; color: #e2f0d9; transform: translateY(-2px); }
-        section { padding: 80px 20px; max-width: 1200px; margin: 0 auto; }
-        h2 { font-size: 2.2rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px; text-align: center; }
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: rgba(243, 241, 227, 0.92);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid #b33600;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .logo {
+            font-weight: bold;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .nav-links a {
+            margin-left: 20px;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: color 0.3s;
+            color: #b33600;
+            font-weight: bold;
+        }
+
+        .nav-links a:hover {
+            color: #802600;
+        }
+
+        .hero {
+            position: relative;
+            margin-top: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            color: #b33600;
+            margin-bottom: 30px;
+            letter-spacing: 1px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 15px 35px;
+            font-weight: bold;
+            text-transform: uppercase;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            margin: 10px;
+            letter-spacing: 1px;
+        }
+
+        .btn-primary {
+            background-color: #ff3333;
+            color: #ffffff;
+        }
+
+        .btn-primary:hover {
+            background-color: #cc0000;
+            transform: translateY(-2px);
+        }
+
+        section {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            color: #b33600;
+            font-size: 2.2rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
         /* LABOTS: Svītriņa zem virsrakstiem tagad ir saskaņota ar tavu tumši oranžo krāsu */
-        h2::after { content: ''; display: block; width: 50px; height: 3px; background-color: #b33600; margin: 15px auto 0 auto; }
+        h2::after {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 3px;
+            background-color: #b33600;
+            margin: 15px auto 0 auto;
+        }
+
         /* LABOTS: Apakšvirsraksti padarīti tumšāki labākai lasāmībai uz zaļā fona */
-        .section-subtitle { text-align: center; color: #802600; font-weight: bold; margin-top: 30px; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 1px; }
-        .about-content { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; }
+        .section-subtitle {
+            text-align: center;
+            color: #3e3e3e;
+            font-weight: bold;
+            margin-top: 30px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
         /* LABOTS: Filmas info teksts (garums, žanrs) padarīts tumšāks un salasāmāks */
-        .about-text .meta-info { color: #802600; margin-bottom: 20px; font-size: 0.9rem; }
-        .about-img img { width: 100%; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
-        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 40px; }
-        .gallery-item { overflow: hidden; border-radius: 6px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); height: 180px; }
-        .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease; }
-        .gallery-item img:hover { transform: scale(1.04); }
-        /* LABOTS: Biļešu sadaļas fons tagad ir nedaudz tumšāks, bet saskaņots zaļgans tonis */
-        .tickets-wrapper { box-sizing: border-box; background-color: #c3e6cb; padding: 80px 20px; width: 100%; }
-        .tickets-container { max-width: 800px; margin: 0 auto; }
-        /* LABOTS: Kinoteātru rindas tagad ir tīrā, gaišā krāsā ar tumši oranžu maliņu */
-        .cinema-row { display: flex; justify-content: space-between; align-items: center; background-color: #ffffff; padding: 15px 25px; border-radius: 6px; margin-bottom: 12px; border-left: 4px solid #b33600; transition: transform 0.2s; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
-        .cinema-row:hover { transform: scale(1.01); }
-        .cinema-name { font-size: 1.1rem; font-weight: bold; color: #b33600; }
-        /* LABOTS: Biļešu pogas tagad ir skaisti tumši oranžas */
-        .btn-ticket { padding: 10px 20px; background-color: transparent; border: 2px solid #b33600; color: #b33600; font-weight: bold; border-radius: 4px; text-transform: uppercase; font-size: 0.85rem; transition: all 0.3s; cursor: pointer; }
-        .btn-ticket:hover { background-color: #b33600; color: #ffffff; }
-        .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; text-align: center; }
-        .team-member h3 { font-size: 1.1rem; margin-bottom: 5px; color: #b33600; }
-        .team-member p { color: #802600; font-size: 0.9rem; }
-        .partners-logos { display: flex; justify-content: center; align-items: center; gap: 40px; flex-wrap: wrap; opacity: 0.8; }
-        .partner-placeholder { font-weight: bold; color: #802600; letter-spacing: 1px; font-size: 0.8rem; text-transform: uppercase; }
-        .social-links { margin-top: 20px; }
-        .social-links a { margin: 0 10px; color: #802600; font-size: 0.9rem; transition: color 0.3s; }
-        .social-links a:hover { color: #b33600; }
+        .about-text .meta-info {
+            color: #802600;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+        }
+
+        .about-img img {
+            width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .tickets-wrapper {
+            box-sizing: border-box;
+            background-color: #dedbc8;
+            padding: 40px 20px;
+            width: 100%;
+            margin-top: 32px;
+        }
+
+        .tickets-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .cinema-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #ffffff;
+            padding: 16px 22px 16px 20px;
+            border-radius: 10px;
+            margin-bottom: 14px;
+            border: 1px solid rgba(190, 161, 107, 0.28);
+            border-left: 4px solid #bea16b;
+            box-shadow: 0 8px 22px rgba(42, 48, 30, 0.08);
+            transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+        }
+        .cinema-row:hover {
+            transform: translateY(-3px);
+            border-color: rgba(190, 161, 107, 0.7);
+            border-left-color: #bea16b;
+            box-shadow: 0 16px 32px rgba(42, 48, 30, 0.14);
+        }
+        .cinema-name {
+            font-size: 1.1rem;
+            font-weight: bold;
+        }
+        .btn-ticket {
+            padding: 10px 20px;
+            background-color: #ffffff;
+            border: 1px solid #2a301e;
+            color: #2a301e;
+            font-weight: bold;
+            border-radius: 6px;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.4px;
+            box-shadow: 0 2px 6px rgba(42, 48, 30, 0.06);
+            transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+            cursor: pointer;
+        }
+        a.btn-ticket:hover {
+            background-color: #2a301e;
+            border-color: #bea16b;
+            color: #bea16b;
+            transform: translateY(-1px);
+            box-shadow: 0 8px 18px rgba(42, 48, 30, 0.22);
+        }
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 8px 32px;
+            text-align: center;
+        }
+
+        .team-member h3 {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+
+        .team-member p {
+            font-size: 0.9rem;
+        }
+
+        .partners-logos {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px 24px;
+            flex-wrap: wrap;
+        }
+
+        .partner-placeholder {
+            font-weight: bold;
+            letter-spacing: 1px;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+        }
+
+        .social-links {
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            margin: 0 10px;
+            color: #802600;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: #b33600;
+        }
+
         /* LABOTS: Apakša (Footer) tagad ir ar smuku oranžu līniju un skaidru tekstu */
-        footer { text-align: center; padding: 40px 20px; border-top: 1px solid #b33600; color: #802600; font-size: 0.85rem; }
-        @media (max-width: 768px) { .nav-links { display: none; } .hero-content h1 { font-size: 1.8rem; } .about-content { grid-template-columns: 1fr; gap: 30px; } .cinema-row { flex-direction: column; text-align: center; gap: 15px; padding: 20px; } }
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            border-top: 1px solid #b33600;
+            color: #802600;
+            font-size: 0.85rem;
+        }
+
+        #anotacija {
+            padding-top: 32px;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero-content h1 {
+                font-size: 1.8rem;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .cinema-row {
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+                padding: 20px;
+            }
+
+            #splash-screen {
+                background-color: #0e1418;
+                background-image: url('mobile-bg.jpeg');
+                background-repeat: no-repeat;
+                background-position: center center;
+                background-size: cover;
+            }
+
+            .splash-actions {
+                top: auto;
+                bottom: 17%;
+                gap: 8px;
+                max-width: calc(100vw - 16px);
+            }
+
+            .splash-actions .btn {
+                padding: 12px 14px;
+                font-size: 0.75rem;
+                letter-spacing: 0.5px;
+            }
+        }
     </style>
 </head>
 <body>
 
     <!-- FRONTĀLAIS SLAIDS AR REĀLO PLAKĀTU -->
     <div id="splash-screen" onclick="openWebsite()">
-        <div class="enter-text">Pirkt biļetes</div>
+        <div class="splash-actions">
+            <a href="#biletes" class="btn btn-primary" onclick="event.stopPropagation(); openWebsite();">Pirkt biļetes</a>
+            <a href="https://www.youtube.com/watch?v=wYxGDkWap3s&t=3s" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" onclick="event.stopPropagation();">Skatīties treileri</a>
+        </div>
     </div>
 
     <!-- SATURA IETVARS -->
@@ -145,7 +425,6 @@
                 <h1>Kristofers un divu pasauļu atslēga</h1>
                 <p>Kinoteātros no 16. oktobra</p>
                 <!-- SALABOTS: Tagad treilera poga atvērsies jaunā cilnē bez kļūdām -->
-                <a href="https://www.youtube.com/watch?v=wYxGDkWap3s&t=3s" target="_blank" class="btn btn-secondary">Skatīties treileri</a>
                 <a href="#biletes" class="btn btn-primary">Pirkt biļetes</a>
             </div>
         </div>
@@ -162,9 +441,6 @@
                     <img src="https://i.postimg.cc/q7n4mfLm/Kristofers-Publicitate-2-8.jpg" alt="Kristofers un divu pasauļu atslēga">
                 </div>
             </div>
-            <div class="gallery-grid">
-               
-            </div>
     <div class="tickets-wrapper" id="biletes">
         <h2>Skaties kinoteātros</h2>
         <div class="tickets-container">
@@ -178,7 +454,19 @@
             <div class="cinema-row"><div class="cinema-name">Kino Gaisma (Valmiera)</div><a href="https://www.3dcinema.lv/movies/kristofers-un-divu-pasalu-atslega-2026/showtimes/2026-10-16?location=3d_cinema" target="_blank" class="btn-ticket">Pirkt biļeti</a></div>
             <div class="cinema-row"><div class="cinema-name">Kino Rio (Ventspils)</div><a href="https://kinorio.lv/movies/1363?locale=lv" target="_blank" class="btn-ticket">Drīzumā</a></div>
             <div class="cinema-row"><div class="cinema-name">Kuldīgas kultūras centrs (Kuldīga)</div><a href="https://kckuldiga.lv/event/kristofers-un-divu-pasaulu-atslega" target="_blank" class="btn-ticket">Pirkt biļeti</a></div>
-            <div class="cinema-row"><div class="cinema-name">Latgales GORS (Rēzekne)</div><span class="btn-ticket" style="border-color: #555; color: #888; cursor: default;">Drīzumā</span></div>
+            <div class="cinema-row">
+                <div class="cinema-name">Kino Auseklis (Talsi)</div>
+                <a href="https://kinotalsi.lv/?single-event=105867&concert=512031" target="_blank" class="btn-ticket">
+                    Pirkt biļeti
+                </a>
+            </div>
+
+            <div class="cinema-row">
+                <div class="cinema-name">Latgales GORS (Rēzekne)</div>
+                <span class="btn-ticket" style="border-color: #555; color: #888; cursor: default;">
+                    Drīzumā
+                </span>
+            </div>
             <div class="section-subtitle">Kultūras Centri</div>
             <div class="cinema-row"><div class="cinema-name">Aizkraukles kultūras centrs</div><a href="https://www.bilesuparadize.lv/lv/event/178874" target="_blank" class="btn-ticket">Pirkt biļeti</a></div>
             <div class="cinema-row"><div class="cinema-name">Baložu pilsētas kultūras nams</div><a href="https://kekava.lv/notikumi/kristofers-un-divu-pasauu-atslga-piedzvoju-fantzijas-imenes-filma/" target="_blank" class="btn-ticket">Pirkt biļeti</a></div>
@@ -203,7 +491,7 @@
             <div class="team-member"><h3>Ģertrūde Rubins</h3><p>Sāra</p></div>
         </div>
     </section>
-    <section>
+    <section style="padding-top: 0;">
         <h2>Partneri & Atbalstītāji</h2>
         <div class="partners-logos">
             <div class="partner-placeholder">Filmu studija F.O.R.M.A.</div>
@@ -212,10 +500,16 @@
             <div class="partner-placeholder">Samsung</div>
             <div class="partner-placeholder">Ogres novada pašvaldība</div>
             <div class="partner-placeholder">TV3 Group</div>
+            <div style="width: 100%;"></div>
             <div class="partner-placeholder">VENDEN</div>
             <div class="partner-placeholder">CUPRA</div>
-	    <div class="partner-placeholder">Radio SWH</div>
-	    <div class="partner-placeholder">HANNU-PRO</div>
+            <div class="partner-placeholder">AUTOBRAVA MOTORS</div>
+            <div class="partner-placeholder">HANNU-PRO</div>
+            <div class="partner-placeholder">Radio SWH</div>            
+            <div class="partner-placeholder">LETA</div>
+            <div class="partner-placeholder">LATVIJAS SKOLAS SOMA</div>
+            <div class="partner-placeholder">DRAUGIEM.LV</div>
+            <div class="partner-placeholder">JAUNS.LV</div>
         </div>
     </section>
     <footer>
